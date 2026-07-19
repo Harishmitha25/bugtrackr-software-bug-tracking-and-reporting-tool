@@ -32,7 +32,7 @@ const TeamLeadReallocationRequests = () => {
     const fetchReallocationRequests = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:5000/api/bug-reports/reallocation-requests",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reallocation-requests`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -92,7 +92,7 @@ const TeamLeadReallocationRequests = () => {
       }
 
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/approve-reject-reallocation",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/approve-reject-reallocation`,
         requestPayload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -241,7 +241,7 @@ const TeamLeadReallocationRequests = () => {
                             if (newStatus === "Approved") {
                               try {
                                 const response = await axios.get(
-                                  `https://localhost:5000/api/developers/${bug.application}/${bug.assignedTeam}`,
+                                  `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/${bug.application}/${bug.assignedTeam}`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -379,7 +379,7 @@ const TeamLeadReallocationRequests = () => {
                             if (newStatus === "Approved") {
                               try {
                                 const response = await axios.get(
-                                  `https://localhost:5000/api/testers/${bug.application}/${bug.assignedTeam}`,
+                                  `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/testers/${bug.application}/${bug.assignedTeam}`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,

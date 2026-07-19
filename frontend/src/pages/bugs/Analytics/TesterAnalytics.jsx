@@ -93,7 +93,7 @@ const TesterAnalytics = () => {
     setSummaryLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/tester/summary/${testerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/tester/summary/${testerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -127,7 +127,7 @@ const TesterAnalytics = () => {
     setTestTrendLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/tester/test-trend/${testerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/tester/test-trend/${testerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -163,7 +163,7 @@ const TesterAnalytics = () => {
     setavgtestTimeLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/tester/avg-test-time/${testerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/tester/avg-test-time/${testerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -211,7 +211,7 @@ const TesterAnalytics = () => {
     setSlaLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/tester/sla-breaches/${testerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/tester/sla-breaches/${testerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -241,7 +241,7 @@ const TesterAnalytics = () => {
     setStatusLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/tester/bug-status-overview/${testerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/tester/bug-status-overview/${testerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {

@@ -108,7 +108,7 @@ const BugReportFormDeveloper = () => {
   //Get issue types based on role
   useEffect(() => {
     axios
-      .get(`https://localhost:5000/api/issue-types?userRole=${userRole}`, {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/issue-types?userRole=${userRole}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setIssueTypes(res.data))
@@ -350,7 +350,7 @@ const BugReportFormDeveloper = () => {
         bugReportFormDataToSend.append("priority", autoPriority);
       }
       const duplcaiteCheckResponse = await axios.post(
-        "https://localhost:5000/api/bug-reports/check-duplicate",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/check-duplicate`,
         {
           application: bugReportFormData.application,
           title: bugReportFormData.title,
@@ -389,7 +389,7 @@ const BugReportFormDeveloper = () => {
   const classifyBugPriority = async (application, title, description) => {
     try {
       const res = await axios.post(
-        "https://localhost:5000/api/bug-reports/classify-priority",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/classify-priority`,
         {
           application,
           title,
@@ -413,7 +413,7 @@ const BugReportFormDeveloper = () => {
   const finalizeSubmission = async (bugReportFormDataToSend) => {
     try {
       await axios.post(
-        "https://localhost:5000/api/bug-reports/submit",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/submit`,
         bugReportFormDataToSend,
         {
           headers: {

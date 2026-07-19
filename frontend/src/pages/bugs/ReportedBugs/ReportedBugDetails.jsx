@@ -44,7 +44,7 @@ const ReportedBugDetails = ({ bugId, onClickingBack }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/bug-reports/reported/${bugId}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reported/${bugId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -73,7 +73,7 @@ const ReportedBugDetails = ({ bugId, onClickingBack }) => {
 
     try {
       await axios.post(
-        `https://localhost:5000/api/bug-reports/reported/${bugId}/add-info`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reported/${bugId}/add-info`,
         { info: newInfo },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

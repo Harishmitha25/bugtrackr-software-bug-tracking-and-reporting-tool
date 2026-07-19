@@ -108,7 +108,7 @@ router.post(
           text: `${user.fullName} mentioned you in a comment on bug report ${bug.bugId}: "${commentText}"`,
           html: `<p><strong>${user.fullName}</strong> mentioned you in a comment on <strong>Bug id ${bug.bugId}</strong>:</p>
                    <blockquote>${commentText}</blockquote>
-                   <p><a href="https://localhost:3000/dashboard">View bug report</a></p>`,
+                   <p><a href="${process.env.FRONTEND_URL || "https://localhost:3000"}/dashboard">View bug report</a></p>`,
         });
       }
 

@@ -10,12 +10,13 @@ def bootstrap():
 
     try:
         #Get bugs from the nodejs backend API for embedding
+        backend_url = os.getenv("BACKEND_URL", "https://localhost:5000")
         res = requests.get(
-            "https://localhost:5000/api/bug-reports/for-embedding",
+            f"{backend_url}/api/bug-reports/for-embedding",
             headers={
                 "x-similarity-key": os.getenv("SIMILARITY_API_KEY")
             },
-            verify=False #Allow self-signed certs – needed because the nodejs backend uses https with a self-signed certificate
+            verify=backend_url != "https://localhost:5000" #skip cert check only for local self-signed cert
         )
 
         if res.status_code != 200:

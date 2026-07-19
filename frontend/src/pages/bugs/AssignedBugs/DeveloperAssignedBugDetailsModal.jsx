@@ -104,7 +104,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
     const fetchBugData = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/comments/${bug.bugId}/details`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/${bug.bugId}/details`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setComments(response.data.comments);
@@ -127,7 +127,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
     const fetchmentionableUSers = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/applications/${bug.application}/mentionable-users`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications/${bug.application}/mentionable-users`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setmentionableUSers(response.data.users || []);
@@ -148,7 +148,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
           const similarBugPromises = filteredIds.map(async (similarBugId) => {
             try {
               const res = await axios.get(
-                `https://localhost:5000/api/bug-reports/assigned/team/${similarBugId}?isGettingDetailForSimilarBug=true`,
+                `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/team/${similarBugId}?isGettingDetailForSimilarBug=true`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }
@@ -198,7 +198,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
 
     try {
       await axios.put(
-        "https://localhost:5000/api/bug-reports/update-status", //Update status on dropdown value change
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/update-status`, //Update status on dropdown value change
         {
           bugId: bug.bugId,
           status: newStatus,
@@ -299,7 +299,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
 
     try {
       await axios.put(
-        `https://localhost:5000/api/comments/edit/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/edit/${commentId}`,
         { bugId: bug.bugId, updatedComment: editedCommentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -363,7 +363,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
 
     try {
       await axios.delete(
-        `https://localhost:5000/api/comments/delete/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/delete/${commentId}`,
         {
           data: { bugId: bug.bugId }, // need to pass body data via data field in the config object
           headers: { Authorization: `Bearer ${token}` },
@@ -393,7 +393,7 @@ const DeveloperBugDetailsModal = ({ bug, onClose, updateBugLocally }) => {
 
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/comments/add",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/add`,
         {
           bugId: bug.bugId,
           commentText: newComment,

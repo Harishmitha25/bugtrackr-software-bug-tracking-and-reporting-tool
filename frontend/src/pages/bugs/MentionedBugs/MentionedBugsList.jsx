@@ -38,7 +38,7 @@ const MentionedBugsList = ({ onSelectBug }) => {
   //Get the bugs where logged in user is mentiond
   useEffect(() => {
     axios
-      .get("https://localhost:5000/api/comments/mentioned", {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/mentioned`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
@@ -95,7 +95,7 @@ const MentionedBugsList = ({ onSelectBug }) => {
   const debouncedSemanticSearch = debounce(async (query, app, setError) => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/search/semantic",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         {
           application: app,
           query,

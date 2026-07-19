@@ -146,7 +146,7 @@ const AdminAnalytics = () => {
     const fetchApplications = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:5000/api/applications",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -166,7 +166,7 @@ const AdminAnalytics = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/total-bugs",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/total-bugs`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -218,7 +218,7 @@ const AdminAnalytics = () => {
     setPriorityLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/bugs-by-priority",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/bugs-by-priority`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: priorityFilters,
@@ -247,7 +247,7 @@ const AdminAnalytics = () => {
     setStatusLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/bugs-by-status",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/bugs-by-status`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: statusFilters,
@@ -276,7 +276,7 @@ const AdminAnalytics = () => {
     setUnassignedLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/unassigned-bugs",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/unassigned-bugs`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: unassignedFilters,
@@ -304,7 +304,7 @@ const AdminAnalytics = () => {
     setSlaLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/sla-breaches",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/sla-breaches`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: slaFilters,
@@ -349,7 +349,7 @@ const AdminAnalytics = () => {
     setResolutionLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/fix-vs-report-trend",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/fix-vs-report-trend`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: resolutionFilters,
@@ -378,7 +378,7 @@ const AdminAnalytics = () => {
     setworkloadLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/current-workload",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/current-workload`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: workloadFilters,
@@ -444,7 +444,7 @@ const AdminAnalytics = () => {
     sethighPriorityDataLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/high-priority-bugs",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/high-priority-bugs`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: highPriorityFilters,
@@ -474,7 +474,7 @@ const AdminAnalytics = () => {
     setstuckLoading(true);
     try {
       const res = await axios.get(
-        "https://localhost:5000/api/analytics/admin/stuck-bugs",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/admin/stuck-bugs`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: stuckFilters,

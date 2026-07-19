@@ -22,7 +22,7 @@ const runAutoAssignRetryJob = () => {
         try {
           //Call the auto-assign-developer API
           await axios.put(
-            "https://localhost:5000/api/bug-reports/auto-assign-developer",
+            `${process.env.BACKEND_URL || "https://localhost:5000"}/api/bug-reports/auto-assign-developer`,
             { bugId: bug.bugId },
             {
               headers: {

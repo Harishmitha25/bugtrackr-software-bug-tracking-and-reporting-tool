@@ -35,7 +35,7 @@ const ReallocationRequests = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://localhost:5000/api/bug-reports/reallocation-requests", {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reallocation-requests`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -118,7 +118,7 @@ const ReallocationRequests = () => {
   const debouncedSemanticSearch = debounce(async (query, app) => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/search/semantic",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         { application: app, query },
         {
           headers: {

@@ -24,7 +24,7 @@ const TesterTestedBugs = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:5000/api/bug-reports/assigned/tester/${email}/tested-bugs`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/tester/${email}/tested-bugs`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -75,7 +75,7 @@ const TesterTestedBugs = () => {
 
     try {
       await axios.put(
-        "https://localhost:5000/api/bug-reports/reopen-bug",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reopen-bug`,
         { bugId, reason },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -140,7 +140,7 @@ const TesterTestedBugs = () => {
 
     try {
       await axios.put(
-        `https://localhost:5000/api/bug-reports/${bug.bugId}/update-hours`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/${bug.bugId}/update-hours`,
         {
           application: app,
           assignedTeam: team,

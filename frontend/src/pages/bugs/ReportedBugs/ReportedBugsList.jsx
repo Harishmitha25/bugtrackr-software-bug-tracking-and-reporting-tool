@@ -41,7 +41,7 @@ const ReportedBugsList = ({ onSelectBug }) => {
   //Get the bugs reported by the logged in user
   useEffect(() => {
     axios
-      .get("https://localhost:5000/api/bug-reports/reported", {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reported`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -181,7 +181,7 @@ const ReportedBugsList = ({ onSelectBug }) => {
   const debouncedSemanticSearch = debounce(async (query, app, setError) => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/search/semantic",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         {
           application: app,
           query,

@@ -35,7 +35,7 @@ const AdminReallocationRequests = () => {
     const fetchApplications = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:5000/api/applications",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setApplications(response.data);
@@ -72,7 +72,7 @@ const AdminReallocationRequests = () => {
       }
 
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/approve-reject-reallocation",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/approve-reject-reallocation`,
         requestPayload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -151,7 +151,7 @@ const AdminReallocationRequests = () => {
 
     try {
       const response = await axios.get(
-        "https://localhost:5000/api/bug-reports/reallocation-requests",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reallocation-requests`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -298,7 +298,7 @@ const AdminReallocationRequests = () => {
                             if (newStatus === "Approved") {
                               try {
                                 const response = await axios.get(
-                                  `https://localhost:5000/api/applications/${bug.application}/mentionable-users`,
+                                  `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications/${bug.application}/mentionable-users`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -440,7 +440,7 @@ const AdminReallocationRequests = () => {
                             if (newStatus === "Approved") {
                               try {
                                 const response = await axios.get(
-                                  `https://localhost:5000/api/applications/${bug.application}/mentionable-users`,
+                                  `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications/${bug.application}/mentionable-users`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,

@@ -102,7 +102,7 @@ const BugReportFormAdmin = () => {
   //Get issue types based on role
   useEffect(() => {
     axios
-      .get(`https://localhost:5000/api/issue-types?userRole=${userRole}`, {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/issue-types?userRole=${userRole}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setIssueTypes(res.data))
@@ -134,7 +134,7 @@ const BugReportFormAdmin = () => {
     if (name === "assignedToDeveloper" && value !== "Unassign") {
       try {
         const response = await axios.post(
-          "https://localhost:5000/api/developers/check-availability",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/check-availability`,
           {
             developerEmail: value,
             application: bugReportFormData.application,
@@ -232,7 +232,7 @@ const BugReportFormAdmin = () => {
     if (teamName !== "unassigned") {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/developers/${appName}/${teamName}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/${appName}/${teamName}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -421,7 +421,7 @@ const BugReportFormAdmin = () => {
         bugReportFormDataToSend.append("priority", autoPriority);
       }
       const duplcaiteCheckResponse = await axios.post(
-        "https://localhost:5000/api/bug-reports/check-duplicate",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/check-duplicate`,
         {
           application: bugReportFormData.application,
           title: bugReportFormData.title,
@@ -460,7 +460,7 @@ const BugReportFormAdmin = () => {
   const classifyBugPriority = async (application, title, description) => {
     try {
       const res = await axios.post(
-        "https://localhost:5000/api/bug-reports/classify-priority",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/classify-priority`,
         {
           application,
           title,
@@ -485,7 +485,7 @@ const BugReportFormAdmin = () => {
   const finalizeSubmission = async (bugReportFormDataToSend) => {
     try {
       await axios.post(
-        "https://localhost:5000/api/bug-reports/submit",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/submit`,
         bugReportFormDataToSend,
         {
           headers: {

@@ -120,7 +120,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/auth/send-otp",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/auth/send-otp`,
         { email }
       );
 
@@ -148,7 +148,7 @@ const ForgotPassword = () => {
   const verifyOtp = async () => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/auth/verify-otp",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/auth/verify-otp`,
         { email, otp }
       );
       if (response.data.success) {
@@ -180,7 +180,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      await axios.post("https://localhost:5000/api/auth/reset-password", {
+      await axios.post(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/auth/reset-password`, {
         email,
         newPassword,
       });

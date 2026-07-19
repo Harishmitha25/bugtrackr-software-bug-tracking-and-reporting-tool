@@ -93,7 +93,7 @@ const DeveloperAnalytics = () => {
     setSummaryLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/developer/summary/${developerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/developer/summary/${developerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -127,7 +127,7 @@ const DeveloperAnalytics = () => {
     setFixTrendLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/developer/fix-trend/${developerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/developer/fix-trend/${developerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -165,7 +165,7 @@ const DeveloperAnalytics = () => {
     setavgfixTimeLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/developer/avg-fix-time/${developerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/developer/avg-fix-time/${developerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -213,7 +213,7 @@ const DeveloperAnalytics = () => {
     setSlaLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/developer/sla-breaches/${developerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/developer/sla-breaches/${developerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -243,7 +243,7 @@ const DeveloperAnalytics = () => {
     setStatusLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/developer/bug-status-overview/${developerEmail}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/developer/bug-status-overview/${developerEmail}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {

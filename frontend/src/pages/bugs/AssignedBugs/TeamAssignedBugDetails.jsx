@@ -113,7 +113,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/bug-reports/assigned/team/${bugId}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/team/${bugId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -137,7 +137,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
               async (similarBugId) => {
                 try {
                   const res = await axios.get(
-                    `https://localhost:5000/api/bug-reports/assigned/team/${similarBugId}?isGettingDetailForSimilarBug=true`,
+                    `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/team/${similarBugId}?isGettingDetailForSimilarBug=true`,
                     {
                       headers: { Authorization: `Bearer ${token}` },
                     }
@@ -174,7 +174,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
       const fetchDevelopers = async () => {
         try {
           const response = await axios.get(
-            `https://localhost:5000/api/developers/${bug.application}/${bug.assignedTeam}`,
+            `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/${bug.application}/${bug.assignedTeam}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -198,7 +198,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
       const fetchTesters = async () => {
         try {
           const response = await axios.get(
-            `https://localhost:5000/api/testers/${bug?.application}/${bug?.assignedTeam}`,
+            `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/testers/${bug?.application}/${bug?.assignedTeam}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -246,7 +246,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
     const fetchBugData = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/comments/${bug?.bugId}/details`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/${bug?.bugId}/details`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setComments(response.data.comments);
@@ -273,7 +273,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
       console.log("jbasdjksensdkj " + JSON.stringify(bug));
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/applications/${bug.application}/mentionable-users`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications/${bug.application}/mentionable-users`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setmentionableUSers(response.data.users || []);
@@ -368,7 +368,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
 
     try {
       await axios.put(
-        `https://localhost:5000/api/comments/edit/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/edit/${commentId}`,
         { bugId, updatedComment: editedCommentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -433,7 +433,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
 
     try {
       await axios.delete(
-        `https://localhost:5000/api/comments/delete/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/delete/${commentId}`,
         {
           data: { bugId }, // need to pass body data via data field in the config object
           headers: { Authorization: `Bearer ${token}` },
@@ -463,7 +463,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
 
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/comments/add",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/add`,
         {
           bugId: bug?.bugId,
           commentText: newComment,
@@ -516,8 +516,8 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
 
     const isReopening = bug.status === "Closed" && selectedStatus === "Reopen";
     const endpoint = isReopening
-      ? "https://localhost:5000/api/bug-reports/reopen-bug"
-      : "https://localhost:5000/api/bug-reports/update-status";
+      ? `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reopen-bug`
+      : `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/update-status`;
 
     const requestBody = isReopening
       ? {
@@ -598,7 +598,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
   const handleDuplicateCheck = async () => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/check-duplicate",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/check-duplicate`,
         {
           application: bug.application,
           title: bug.title,
@@ -647,7 +647,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
   const handleAutoAssignDeveloper = async () => {
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/auto-assign-developer",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/auto-assign-developer`,
         { bugId: bug.bugId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -683,7 +683,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
   const handleAutoAssignTester = async () => {
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/auto-assign-tester",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/auto-assign-tester`,
         { bugId: bug.bugId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -1068,7 +1068,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
                 setSelectedPriority(e.target.value);
                 try {
                   await axios.put(
-                    "https://localhost:5000/api/bug-reports/set-priority",
+                    `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/set-priority`,
                     { bugId: bug.bugId, priority: e.target.value },
                     {
                       headers: { Authorization: `Bearer ${token}` },
@@ -1110,7 +1110,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
                 onChange={async (e) => {
                   try {
                     const response = await axios.put(
-                      "https://localhost:5000/api/bug-reports/assign-developer",
+                      `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assign-developer`,
                       { bugId: bug.bugId, developerEmail: e.target.value },
                       { headers: { Authorization: `Bearer ${token}` } }
                     );
@@ -1182,7 +1182,7 @@ const AssignedBugDetails = ({ bugId, onClickingBack }) => {
                 onChange={async (e) => {
                   try {
                     const response = await axios.put(
-                      "https://localhost:5000/api/bug-reports/assign-tester",
+                      `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assign-tester`,
                       { bugId: bug.bugId, testerEmail: e.target.value },
                       { headers: { Authorization: `Bearer ${token}` } }
                     );

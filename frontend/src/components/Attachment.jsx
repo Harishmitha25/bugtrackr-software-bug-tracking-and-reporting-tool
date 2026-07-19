@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Attachment = ({ fileName }) => {
-  const attachmentUrl = `https://localhost:5000/attachments/${fileName}`; // Statically served attachments in backend
+  const attachmentUrl = `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/attachments/${fileName}`; // Statically served attachments in backend
   const fileExt = fileName.split(".").pop().toLowerCase();
 
   // Get actual file name (remove the number added in the front)

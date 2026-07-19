@@ -35,7 +35,7 @@ const BugChatBox = ({ bugId, currentUser }) => {
     socket.emit("join_bug_room", bugId);
 
     axios
-      .get(`https://localhost:5000/api/chat/${bugId}/messages`)
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/chat/${bugId}/messages`)
       .then((res) => setMEssages(res.data))
       .catch((err) => console.error("Chat fetch failed", err));
   }, [bugId]);
@@ -62,7 +62,7 @@ const BugChatBox = ({ bugId, currentUser }) => {
 
     try {
       await axios.post(
-        `https://localhost:5000/api/chat/${bugId}/send`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/chat/${bugId}/send`,
         newMessage
       );
       socket.emit("send_message", {

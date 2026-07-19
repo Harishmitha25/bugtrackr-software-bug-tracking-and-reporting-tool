@@ -67,7 +67,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
     const fetchBugDetails = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/comments/mentioned/${bugId}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/mentioned/${bugId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setBug(response.data.bugReport);
@@ -88,7 +88,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/comments/${bugId}/details`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/${bugId}/details`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setComments(response.data.comments);
@@ -140,7 +140,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
     const fetchmentionableUSers = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:5000/api/applications/${bug.application}/mentionable-users`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications/${bug.application}/mentionable-users`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setmentionableUSers(response.data.users || []);
@@ -223,7 +223,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
 
     try {
       await axios.put(
-        `https://localhost:5000/api/comments/edit/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/edit/${commentId}`,
         { bugId: bug.bugId, updatedComment: editedCommentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -287,7 +287,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
 
     try {
       await axios.delete(
-        `https://localhost:5000/api/comments/delete/${commentId}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/delete/${commentId}`,
         {
           data: { bugId: bug.bugId }, // need to pass body data via data field in the config object
           headers: { Authorization: `Bearer ${token}` },
@@ -317,7 +317,7 @@ const MentionedBugsDetials = ({ bugId, onClickingBack }) => {
 
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/comments/add",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/comments/add`,
         {
           bugId: bug.bugId,
           commentText: newComment,

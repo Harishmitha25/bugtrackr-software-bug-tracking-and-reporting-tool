@@ -48,7 +48,7 @@ const DeveloperFixedBugs = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:5000/api/bug-reports/assigned/developer/${email}/fixed-bugs`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/developer/${email}/fixed-bugs`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -86,7 +86,7 @@ const DeveloperFixedBugs = () => {
   const debouncedSemanticSearch = debounce(async (query, app) => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/search/semantic",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         { application: app, query },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -158,7 +158,7 @@ const DeveloperFixedBugs = () => {
 
     try {
       await axios.put(
-        "https://localhost:5000/api/bug-reports/reopen-bug",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reopen-bug`,
         { bugId, reason },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -220,7 +220,7 @@ const DeveloperFixedBugs = () => {
 
     try {
       await axios.put(
-        `https://localhost:5000/api/bug-reports/${bug.bugId}/update-hours`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/${bug.bugId}/update-hours`,
         {
           application: app,
           assignedTeam: team,

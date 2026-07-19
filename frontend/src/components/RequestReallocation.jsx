@@ -61,7 +61,7 @@ const RequestReallocation = ({
 
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/request-reallocation",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/request-reallocation`,
         { bugId, reason: reallocationReason },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -33,7 +33,7 @@ const TesterAssignedBugsList = () => {
         }
 
         const res = await axios.get(
-          `https://localhost:5000/api/bug-reports/assigned/tester/${encodeURIComponent(
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/tester/${encodeURIComponent(
             userEmail
           )}`,
           {
@@ -54,7 +54,7 @@ const TesterAssignedBugsList = () => {
   const moveBug = async (bugId, newStatus) => {
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/update-status",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/update-status`,
         { bugId, status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

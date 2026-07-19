@@ -456,7 +456,7 @@ Please check your dashboard for more details.`,
 
       //To add bug report as embedding to the FAISS index after bug is saved (used in the duplciate detection)
       try {
-        await axios.post("http://localhost:8000/add-embedding", {
+        await axios.post(`${process.env.ML_SERVICE_URL || "http://localhost:8000"}/add-embedding`, {
           application: newBug.application,
           bugId: newBug.bugId,
           title: newBug.title,
@@ -1320,7 +1320,7 @@ This is just for your information.`,
 
       //Get list of valid developers in the assigned team
       const response = await axios.get(
-        `https://localhost:5000/api/developers/${application}/${assignedTeam}`,
+        `${process.env.BACKEND_URL || "https://localhost:5000"}/api/developers/${application}/${assignedTeam}`,
         {
           headers: { Authorization: req.headers.authorization },
           httpsAgent: new (require("https").Agent)({
@@ -1650,7 +1650,7 @@ This is just for your information.`,
 
       //Get list of valid testers in the assigned team
       const response = await axios.get(
-        `https://localhost:5000/api/testers/${application}/${assignedTeam}`,
+        `${process.env.BACKEND_URL || "https://localhost:5000"}/api/testers/${application}/${assignedTeam}`,
         {
           headers: { Authorization: req.headers.authorization },
           httpsAgent: new (require("https").Agent)({
@@ -2417,7 +2417,7 @@ Please approve or reject the closure by visiting the application.
       //To add bug report as embedding to the FAISS priority index after bug is closed (to be used in priority classification)
       if (status === "Closed" && bug?.priority) {
         try {
-          await axios.post("http://localhost:8000/add-priority-embedding", {
+          await axios.post(`${process.env.ML_SERVICE_URL || "http://localhost:8000"}/add-priority-embedding`, {
             application: bug.application,
             bugId: bug.bugId,
             title: bug.title,
@@ -4516,7 +4516,7 @@ router.post(
         }
 
         //Send bug details to the Python duplicate detection service to check for similar existing bugs
-        response = await axios.post("http://localhost:8000/check-duplicate", {
+        response = await axios.post(`${process.env.ML_SERVICE_URL || "http://localhost:8000"}/check-duplicate`, {
           application,
           title,
           description,
@@ -4590,7 +4590,7 @@ router.post("/classify-priority", authenticateUser, async (req, res) => {
     const { application, title, description } = req.body;
 
     const response = await axios.post(
-      "http://localhost:8000/similar-bugs-for-classify-priority?min_score=0.5",
+      `${process.env.ML_SERVICE_URL || "http://localhost:8000"}/similar-bugs-for-classify-priority?min_score=0.5`,
       {
         application,
         query: `${title} ${description}`.trim(),
@@ -4739,7 +4739,7 @@ router.post("/search/semantic", authenticateUser, async (req, res) => {
         .json({ message: "Application and query required" });
     }
 
-    const response = await axios.post("http://localhost:8000/search/semantic", {
+    const response = await axios.post(`${process.env.ML_SERVICE_URL || "http://localhost:8000"}/search/semantic`, {
       application,
       query,
     });

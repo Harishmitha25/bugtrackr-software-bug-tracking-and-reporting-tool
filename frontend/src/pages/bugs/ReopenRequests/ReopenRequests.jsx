@@ -35,7 +35,7 @@ const ReopenRequests = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://localhost:5000/api/bug-reports/reopen-requests", {
+      .get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reopen-requests`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -139,7 +139,7 @@ const ReopenRequests = () => {
   const debouncedSemanticSearch = debounce(async (query, app) => {
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/bug-reports/search/semantic",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         { application: app, query },
         {
           headers: {

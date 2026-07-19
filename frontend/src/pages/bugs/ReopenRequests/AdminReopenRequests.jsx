@@ -23,7 +23,7 @@ const AdminReopenRequests = () => {
     const fetchApplications = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:5000/api/applications",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setApplications(response.data);
@@ -39,7 +39,7 @@ const AdminReopenRequests = () => {
     const fetchReopenRequests = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:5000/api/bug-reports/reopen-requests",
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/reopen-requests`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -122,7 +122,7 @@ const AdminReopenRequests = () => {
   const confirmDecision = async (bugId, requestId, action, toastId) => {
     try {
       await axios.put(
-        "https://localhost:5000/api/bug-reports/approve-reject-reopen",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/approve-reject-reopen`,
         { bugId, requestId, action },
         { headers: { Authorization: `Bearer ${token}` } }
       );

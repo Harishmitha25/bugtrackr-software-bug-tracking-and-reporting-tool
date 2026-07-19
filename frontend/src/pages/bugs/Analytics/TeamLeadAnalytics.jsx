@@ -96,12 +96,12 @@ const TeamLeadAnalytics = () => {
     try {
       const [devRes, testerRes] = await Promise.all([
         axios.get(
-          `https://localhost:5000/api/developers/${application}/${team}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/${application}/${team}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         ),
-        axios.get(`https://localhost:5000/api/testers/${application}/${team}`, {
+        axios.get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/testers/${application}/${team}`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -120,7 +120,7 @@ const TeamLeadAnalytics = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/analytics/teamlead/${application}/${team}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/analytics/teamlead/${application}/${team}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: { ...filters, application: application, team: team },

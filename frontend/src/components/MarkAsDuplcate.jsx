@@ -90,7 +90,7 @@ const MarkAsDuplicate = ({
 
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/mark-duplicate",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/mark-duplicate`,
         { bugId, originalBugId, duplicateExplanation },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -120,7 +120,7 @@ const MarkAsDuplicate = ({
   const handleUndoDuplicate = async () => {
     try {
       const response = await axios.put(
-        "https://localhost:5000/api/bug-reports/undo-duplicate",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/undo-duplicate`,
         { bugId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

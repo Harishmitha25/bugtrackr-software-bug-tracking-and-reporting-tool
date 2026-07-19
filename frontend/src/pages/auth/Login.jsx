@@ -49,7 +49,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://localhost:5000/api/auth/login",
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/auth/login`,
         user
       );
       console.log("Login Successful:", response.data);

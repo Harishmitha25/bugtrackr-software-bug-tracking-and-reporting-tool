@@ -65,7 +65,7 @@ const BugsViewAdmin = ({ onSelectBug }) => {
   //Get all applications in the database
   const fetchApplications = async () => {
     try {
-      const res = await axios.get("https://localhost:5000/api/applications", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/applications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setApplications(res.data);
@@ -97,7 +97,7 @@ const BugsViewAdmin = ({ onSelectBug }) => {
     setSearchClicked(true);
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/bug-reports/assigned/team/${selectedApp}/${selectedTeam}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/team/${selectedApp}/${selectedTeam}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setAllBugs(res.data.bugs || []);
@@ -117,7 +117,7 @@ const BugsViewAdmin = ({ onSelectBug }) => {
     setError("");
     try {
       const res = await axios.get(
-        `https://localhost:5000/api/bug-reports/assigned/team/${selectedApp}/${selectedTeam}`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/assigned/team/${selectedApp}/${selectedTeam}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: {
@@ -150,12 +150,12 @@ const BugsViewAdmin = ({ onSelectBug }) => {
     try {
       const [devRes, testerRes] = await Promise.all([
         axios.get(
-          `https://localhost:5000/api/developers/${application}/${team}`,
+          `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/developers/${application}/${team}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         ),
-        axios.get(`https://localhost:5000/api/testers/${application}/${team}`, {
+        axios.get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/testers/${application}/${team}`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -183,7 +183,7 @@ const BugsViewAdmin = ({ onSelectBug }) => {
   const handleSemanticSearch = async (query) => {
     try {
       const res = await axios.post(
-        `https://localhost:5000/api/bug-reports/search/semantic`,
+        `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/bug-reports/search/semantic`,
         { application: selectedApp, query },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -250,7 +250,7 @@ const BugsViewAdmin = ({ onSelectBug }) => {
   //Get all favourite bugs
   const fetchFavourites = async () => {
     try {
-      const res = await axios.get("https://localhost:5000/api/favourites", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/favourites`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const favIds = res.data.bugs.map((b) => b.bugId);
@@ -268,8 +268,8 @@ const BugsViewAdmin = ({ onSelectBug }) => {
   const toggleFavourite = async (bugId) => {
     const isFavd = favouriteBugIds.includes(bugId);
     const url = isFavd
-      ? "https://localhost:5000/api/favourites/remove"
-      : "https://localhost:5000/api/favourites/add";
+      ? `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/favourites/remove`
+      : `${process.env.REACT_APP_API_URL || "https://localhost:5000"}/api/favourites/add`;
 
     try {
       await axios.post(
