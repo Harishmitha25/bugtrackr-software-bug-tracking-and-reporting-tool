@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+import os
+from fastapi import FastAPI, Depends, Header, HTTPException
 from app.models import BugInput, BugAdd, SearchQuery
 from app import embeddings
 from dotenv import load_dotenv
@@ -6,7 +7,12 @@ from app.bootstrap import bootstrap
 
 load_dotenv()
 
-app = FastAPI()
+#Only the nodejs backend should be able to call this service
+def verify_similarity_key(x_similarity_key: str = Header(None)):
+    if not x_similarity_key or x_similarity_key != os.getenv("SIMILARITY_API_KEY"):
+        raise HTTPException(status_code=403, detail="Unauthorized. Invalid similarity API key")
+
+app = FastAPI(dependencies=[Depends(verify_similarity_key)])
 
 #Run this function when the app starts (to preload existing bug embeddings)
 @app.on_event("startup")

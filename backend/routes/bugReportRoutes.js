@@ -463,6 +463,8 @@ Please check your dashboard for more details.`,
           description: newBug.description,
           stepsToReproduce: newBug.stepsToReproduce,
           userSteps: newBug.userSteps,
+        }, {
+          headers: { "x-similarity-key": process.env.SIMILARITY_API_KEY },
         });
       } catch (err) {
         console.error("Error ", err.message);
@@ -2424,6 +2426,8 @@ Please approve or reject the closure by visiting the application.
             description: bug.description,
             stepsToReproduce: bug.stepsToReproduce,
             userSteps: bug.userSteps,
+          }, {
+            headers: { "x-similarity-key": process.env.SIMILARITY_API_KEY },
           });
           console.log("closed bug emdbing added");
         } catch (err) {
@@ -4522,6 +4526,8 @@ router.post(
           description,
           stepsToReproduce,
           userSteps,
+        }, {
+          headers: { "x-similarity-key": process.env.SIMILARITY_API_KEY },
         });
       } catch (err) {
         console.error("FastAPI error:", err.message);
@@ -4594,6 +4600,9 @@ router.post("/classify-priority", authenticateUser, async (req, res) => {
       {
         application,
         query: `${title} ${description}`.trim(),
+      },
+      {
+        headers: { "x-similarity-key": process.env.SIMILARITY_API_KEY },
       }
     );
 
@@ -4742,6 +4751,8 @@ router.post("/search/semantic", authenticateUser, async (req, res) => {
     const response = await axios.post(`${process.env.ML_SERVICE_URL || "http://localhost:8000"}/search/semantic`, {
       application,
       query,
+    }, {
+      headers: { "x-similarity-key": process.env.SIMILARITY_API_KEY },
     });
     const similarBugIds = response.data.similar_bugs.map((b) => b.bug_id);
     const bugsDetails = await BugReport.find({ bugId: { $in: similarBugIds } });
